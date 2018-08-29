@@ -51,3 +51,35 @@ ubuntu@pcf-ops-manager:~$ export SC_DOWNLOAD_URL=https://network.pivotal.io/api/
 ubuntu@pcf-ops-manager:~$ wget -O ${SC_FILENAME} --header='Authorization: Bearer ${ACCESS_TOKEN}' ${SC_DOWNLOAD_URL}
 ubuntu@pcf-ops-manager:~$ om --target https://localhost -k -u admin -p admin --request-timeout 3600 upload-stemcell -s ~/${SC_FILENAME}
 ```
+
+### Create Networks
+- Name: management
+- Google Network Name: pcf-pcf-network/pcf-management-subnet/asia-northeast1
+- CIDR: 10.0.0.0/26
+- RANGE: 10.0.0.1-10.0.0.9
+- DNS: 169.254.169.254
+- Gateway: 10.0.0.1
+
+- Name: pas
+- Google Network Name: pcf-pcf-network/pcf-pas-subnet/asia-northeast1
+- CIDR: 10.0.4.0/24
+- RANGE: 10.0.4.1-10.0.4.9
+- DNS: 169.254.169.254
+- Gateway: 10.0.4.1
+
+- Name: services
+- Google Network Name: pcf-pcf-network/pcf-services-subnet/asia-northeast1
+- CIDR: 10.0.8.0/24
+- RANGE: 10.0.8.1-10.0.8.9
+- DNS: 169.254.169.254
+- Gateway: 10.0.8.1
+
+### Stop and Start with BOSH
+```
+$ bosh2 alias-env gcp -e 10.0.0.10 --ca-cert /var/tempest/workspaces/default/root_ca_certificate
+$ bosh -e gcp log-in
+$ bosh -e gcp vms
+$ bosh -e gcp -d <DEPLOYMENT_NAME> stop --hard
+$ find /var/tempest/workspaces/default/deployments -name cf-*.yml
+$ bosh -e gcp -d <DEPLOYMENT_NAME> start
+```
