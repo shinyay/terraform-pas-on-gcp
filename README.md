@@ -18,6 +18,77 @@ $ pivnet product-files -p ops-manager -r 2.4.3
 $ pivnet download-product-files -p ops-manager -r 2.4.3 -i 302870
 ```
 
+### BOSH Director on GCP
+#### Director Config
+- NTP Servers
+  - metadata.google.internal
+- Enable VM Resurrector Plugin
+  - Enabled
+- Enable Post Deploy Scripts
+  - Enabled
+- Recreate all VMs
+  - Enabled
+- Recreate All Persistent Disks
+  - Enabled
+- Enable bosh deploy retries
+  - Enabled
+- Keep Unreachable Director VMs
+  - Enabled
+
+#### Create Availability Zones
+- Google Availability Zone
+  - **Terraform output** : `azs`
+    - asia-northeast1-a
+    - asia-northeast1-b
+    - asia-northeast1-c
+
+#### Create Networks
+- management
+  - `network_name`/`management_subnet_name`/`region`
+    - pcf-pcf-network/pcf-infrastructure-subnet/asia-northeast1
+  - `management_subnet_cidrs`
+    - 10.0.0.0/26
+  - Reserved IP Ranges
+    - 10.0.0.1-10.0.0.9
+  - DNS
+    - 169.254.169.254
+  - Gateway
+    - 10.0.0.1
+
+- pas
+  - `network_name`/`pas_subnet_name`/`region`
+    - pcf-pcf-network/pcf-pas-subnet/asia-northeast1
+  - `pas_subnet_cidrs`
+    - 10.0.4.0/24
+  - Reserved IP Ranges
+    - 10.0.4.1-10.0.4.9
+  - DNS
+    - 169.254.169.254
+  - Gateway
+    - 10.0.4.1
+
+- services
+  - `network_name`/`services_subnet_name`/`region`
+    - pcf-pcf-network/pcf-services-subnet/asia-northeast1
+  - `services_subnet_cidrs`
+    - 10.0.8.0/24
+  - Reserved IP Ranges
+    - 10.0.8.1-10.0.8.9
+  - DNS
+    - 169.254.169.254
+  - Gateway
+    - 10.0.0.1
+
+#### Assign AZs and Networks
+- asia-northeast1-a
+- management
+
+#### Resource Config
+- BOSH Director
+  - medium.mem
+- Mater Compilation Job
+  - medium
+
 ### SSH to OPS Manager VM
 
 - Check VM asigned Zonw
