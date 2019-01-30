@@ -152,6 +152,25 @@ $ om --target https://localhost -k -u admin -p admin stage-product -p cf -v $VER
 - Diego Brain
   - `ssh_router_pool`
     - tcp:pcf-cf-ssh
+
+### PAS VMs Stop and Start
+1. Access to `BOSH Director tile` and select the `Status` tab to get **IP ADDRESS**
+2. Select the `Credentials` tab and get `Director Credentials`
+3. `$ gcloud compute --project $GCP_PROJECT ssh --zone $ZONE pcf-ops-manager`
+4. `$ sudo su - ubuntu`
+5. `$ bosh alias-env gcp -e $DIRECTOR-IP-ADDRESS --ca-cert /var/tempest/workspaces/default/root_ca_certificate`
+6. `$ bosh -e gcp log-in`
+7. `$ bosh -e gcp vms`
+8. `$ bosh -e gcp -d $DEPLOYMENT stop --hard`
+
+#### Check
+1. `$ bosh -e gcp vms`
+2. `$ bosh -e gcp -d $DEPLOYMENT deployment`
+
+#### Start
+1. `$ find /var/tempest/workspaces/default/deployments -name cf-*.yml`
+2. `$ bosh -e gcp -d $DEPLOYMENT start`
+
 ### SSH to OPS Manager VM
 
 - Check VM asigned Zonw
