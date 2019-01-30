@@ -90,6 +90,30 @@ $ pivnet download-product-files -p ops-manager -r 2.4.3 -i 302870
   - medium
 
 ### SSH to OPS Manager VM
+```
+$ gcloud compute --project $GCP_PROJECT ssh --zone $ZONE pcf-ops-manager
+```
+
+```
+$ wget https://github.com/pivotal-cf/om/releases/download/0.44.0/om-linux
+$ wget https://github.com/pivotal-cf/pivnet-cli/releases/download/v0.0.55/pivnet-linux-amd64-0.0.55
+$ sudo mv om-linux /usr/local/bin/om
+$ sudo mv pivnet-linux* /usr/local/bin/pivnet
+$ sudo chmod +x /usr/local/bin/om
+$ sudo chmod +x /usr/local/bin/pivnet
+```
+
+```
+$ pivnet login --api-token=$TOKEN
+$ pivnet download-product-files -p elastic-runtime -r $RELEASE -i $ID
+```
+
+```
+$ om --target https://localhost -k -u admin -p admin --request-timeout 3600 upload-product -p cf-${VERSION}.pivotal
+$ om --target https://localhost -k -u admin -p admin stage-product -p cf -v $VERSION
+```
+
+### SSH to OPS Manager VM
 
 - Check VM asigned Zonw
 ```
