@@ -11,6 +11,13 @@ $ pivnet product-files -p elastic-runtime -r 2.4.2
 $ pivnet download-product-files -p elastic-runtime -r 2.4.2 -i 277283
 ```
 
+#### Ops Manager URL
+```
+$ pivnet releases -p ops-manager
+$ pivnet product-files -p ops-manager -r 2.4.3
+$ pivnet download-product-files -p ops-manager -r 2.4.3 -i 302870
+```
+
 ### SSH to OPS Manager VM
 
 - Check VM asigned Zonw
