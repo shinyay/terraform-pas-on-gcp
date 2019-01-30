@@ -113,6 +113,45 @@ $ om --target https://localhost -k -u admin -p admin --request-timeout 3600 uplo
 $ om --target https://localhost -k -u admin -p admin stage-product -p cf -v $VERSION
 ```
 
+### PAS
+#### AZ and Network Assignments
+- Network
+  - pas
+
+#### Domains
+- System Domain
+  - `sys_domain`
+  - sys.pcf.$DOMAIN
+- Apps Domain
+  - 
+  - apps.pcf.$DOMAIN
+
+#### Networking
+- Certificates and Private Keys for HAProxy and Router
+  - pas
+  - Generate RSA Certificate
+    - *.pcf.$DOMAIN,*.sys.pcf.$DOMAIN,*.login.sys.pcf.$DOMAIN,*.uaa.sys.pcf.$DOMAIN,*.apps.pcf.$DOMAIN
+- HAProxy forwards requests to Router over TLS
+  - Disabled
+- Disable SSL certificate verification for this environment
+  - Enabled
+
+#### UAA
+- SAML Service Provider Credentials
+  - *.pcf.$DOMAIN,*.sys.pcf.$DOMAIN,*.login.sys.pcf.$DOMAIN,*.uaa.sys.pcf.$DOMAIN,*.apps.pcf.$DOMAIN
+
+#### CredHub
+- Encryption Key
+  - Primary
+
+#### Resource Config
+- Router
+  - `ws_router_pool`
+  - `http_lb_backend_name`
+    - tcp:pcf-cf-ws,http:pcf-httpslb
+- Diego Brain
+  - `ssh_router_pool`
+    - tcp:pcf-cf-ssh
 ### SSH to OPS Manager VM
 
 - Check VM asigned Zonw
