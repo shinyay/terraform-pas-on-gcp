@@ -85,7 +85,7 @@ $ pivnet download-product-files -p ops-manager -r 2.4.3 -i 302870
 
 #### Resource Config
 - BOSH Director
-  - medium.mem
+  - large.disk
 - Mater Compilation Job
   - medium
 
