@@ -2,7 +2,15 @@
 
 ---
 
-## Memo
+## Notes
+### Pivnet
+#### Terraform Template - PAS
+```
+$ pivnet releases -p elastic-runtime
+$ pivnet product-files -p elastic-runtime -r 2.4.2
+$ pivnet download-product-files -p elastic-runtime -r 2.4.2 -i 277283
+```
+
 ### SSH to OPS Manager VM
 
 - Check VM asigned Zonw
