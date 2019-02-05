@@ -1,0 +1,10 @@
+*.terraform
+*.tfstate.*
+*.tfstate
+terraform.key.json
+*.tfvars
+!example.tfvars
+.idea
+
+auth-key-json-gcp.json
+pas-certificate
